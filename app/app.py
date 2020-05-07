@@ -36,7 +36,7 @@ def record_view(addr_id):
 @app.route('/edit/<int:addr_id>', methods=['GET'])
 def form_edit_get(addr_id):
     cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM cities_table.cities_csv WHERE id=%s', addr_id)
+    cursor.execute('SELECT * FROM tblAddresses WHERE id=%s', addr_id)
     result = cursor.fetchall()
     return render_template('edit.html', title='Edit Form', city=result[0])
 
