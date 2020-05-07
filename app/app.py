@@ -30,7 +30,7 @@ def record_view(addr_id):
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM tblAddresses WHERE id=%s', addr_id)
     result = cursor.fetchall()
-    return render_template('view.html', title='View Form', city=result[0])
+    return render_template('view.html', title='View Form', addr=result[0])
 
 
 @app.route('/edit/<int:addr_id>', methods=['GET'])
@@ -38,7 +38,7 @@ def form_edit_get(addr_id):
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM tblAddresses WHERE id=%s', addr_id)
     result = cursor.fetchall()
-    return render_template('edit.html', title='Edit Form', city=result[0])
+    return render_template('edit.html', title='Edit Form', addr=result[0])
 
 
 @app.route('/edit/<int:addr_id>', methods=['POST'])
@@ -47,7 +47,7 @@ def form_update_post(addr_id):
     inputData = (request.form.get('first'), request.form.get('last'), request.form.get('Address'),
                  request.form.get('City'), request.form.get('State'),
                  request.form.get('zip'), addr_id)
-    sql_update_query = """UPDATE tblAddress t SET t.first = %s, t.last = %s, t.Address = %s, t.City = 
+    sql_update_query = """UPDATE tblAddresses t SET t.first = %s, t.last = %s, t.Address = %s, t.City = 
     %s, t.State = %s, t.zip = %s WHERE t.id = %s """
     cursor.execute(sql_update_query, inputData)
     mysql.get_db().commit()
@@ -58,7 +58,7 @@ def form_insert_get():
     return render_template('new.html', title='New Address Form')
 
 
-@app.route('/addr/new', methods=['POST'])
+@app.route('/address/new', methods=['POST'])
 def form_insert_post():
     cursor = mysql.get_db().cursor()
     inputData = (request.form.get('first'), request.form.get('last'), request.form.get('Address'),
@@ -70,11 +70,11 @@ def form_insert_post():
     return redirect("/", code=302)
 
 
-@app.route('/delete/<int:city_id>', methods=['POST'])
-def form_delete_post(city_id):
+@app.route('/delete/<int:addr_id>', methods=['POST'])
+def form_delete_post(addr_id):
     cursor = mysql.get_db().cursor()
-    sql_delete_query = """DELETE FROM cities_table.cities_csv WHERE id = %s """
-    cursor.execute(sql_delete_query, city_id)
+    sql_delete_query = """DELETE FROM tblAddresses WHERE id = %s """
+    cursor.execute(sql_delete_query, addr_id)
     mysql.get_db().commit()
     return redirect("/", code=302)
 
