@@ -58,14 +58,13 @@ def form_insert_get():
     return render_template('new.html', title='New Address Form')
 
 
-@app.route('/cities/new', methods=['POST'])
+@app.route('/addr/new', methods=['POST'])
 def form_insert_post():
     cursor = mysql.get_db().cursor()
-    inputData = (request.form.get('LatD'), request.form.get('LatM'), request.form.get('LatS'),
-                 request.form.get('NS'), request.form.get('LonD'),
-                 request.form.get('LonM'), request.form.get('LonS'), request.form.get('EW'), request.form.get('City'),
-                 request.form.get('State'))
-    sql_insert_query = """INSERT INTO cities_table.cities_csv (LatD,LatM,LatS,NS,LonD,LonM,LonS,EW,City,State) VALUES (%s,%s,%s,%s,%s, %s,%s,%s,%s,%s) """
+    inputData = (request.form.get('first'), request.form.get('last'), request.form.get('Address'),
+                 request.form.get('City'), request.form.get('State'),
+                 request.form.get('zip'))
+    sql_insert_query = """INSERT INTO tblAddresses (first ,last ,Address,City,State,zip) VALUES (%s,%s,%s,%s,%s, %s) """
     cursor.execute(sql_insert_query, inputData)
     mysql.get_db().commit()
     return redirect("/", code=302)
