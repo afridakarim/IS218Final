@@ -1,5 +1,5 @@
-#IS218 FINAL PROJECT
-##Project Description
+# IS218 FINAL PROJECT
+## Project Description
 This project is a homework assignment to that shows how to set up a structured
  database using Docker, Flask, MySQL, and Postman. 
  
