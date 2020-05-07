@@ -3,15 +3,15 @@ use addressData;
 
 CREATE TABLE IF NOT EXISTS tblAddresses (
     `id` INT AUTO_INCREMENT,
-    `First_Name` VARCHAR(20) CHARACTER SET utf8,
-    `Last_Name` VARCHAR(10) CHARACTER SET utf8,
+    `first` VARCHAR(20) CHARACTER SET utf8,
+    `last` VARCHAR(10) CHARACTER SET utf8,
     `Address` VARCHAR(28) CHARACTER SET utf8,
     `City` VARCHAR(22) CHARACTER SET utf8,
     `State` VARCHAR(3) CHARACTER SET utf8,
-    `ZIP_Code` INT,
+    `zip` INT,
     primary key (`id`)
 );
-INSERT INTO tblAddresses (First_Name, Last_Name, Address, City, State, ZIP_Code) VALUES
+INSERT INTO tblAddresses (first, last, Address, City, State, zip) VALUES
     ('John','Doe','120 Jefferson st.','Riverside',' NJ',80751),
     ('Jack','McGinnis','220 Hobo Ave.','Phila',' PA',91195),
     ('John ','Repici','120 Jefferson St.','Riverside',' NJ',80754),

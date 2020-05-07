@@ -15,12 +15,12 @@
     <tbody>
     {% for addr in address %}
     <tr>
-        <td><a href="view/{{addr.id}}">{{ addr.First_Name }}</a></td>
-        <td>{{ addr.Last_Name }}</td>
+        <td><a href="view/{{addr.id}}">{{ addr.first }}</a></td>
+        <td>{{ addr.last }}</td>
         <td>{{ addr.Address }}</td>
         <td>{{ addr.City }}</td>
         <td>{{ addr.State }}</td>
-        <td>{{ addr.ZIP_Code }}</td>
+        <td>{{ addr.zip }}</td>
     </tr>
     {% endfor %}
     </tbody>
