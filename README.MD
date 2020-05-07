@@ -2,7 +2,10 @@
 ## Project Description
 This project is a homework assignment to that shows how to set up a structured
  database using Docker, Flask, MySQL, and Postman. 
- 
+
+# Browser/Database Screenshots
+
+# Postman Screenshots
  ## Postman Records Screenshot
 ![records](screenshots/postmanRecord.PNG)
 ## Postman GET Screenshot
