@@ -78,6 +78,64 @@ def form_delete_post(addr_id):
     mysql.get_db().commit()
     return redirect("/", code=302)
 
+@app.route('/api/v1/address', methods=['GET'])
+def api_browse() -> str:
+    cursor = mysql.get_db().cursor()
+    cursor.execute('SELECT * FROM tblAddresses')
+    result = cursor.fetchall()
+    json_result = json.dumps(result);
+    resp = Response(json_result, status=200, mimetype='application/json')
+    return resp
+
+
+@app.route('/api/v1/address/<int:addr_id>', methods=['GET'])
+def api_retrieve(addr_id) -> str:
+    cursor = mysql.get_db().cursor()
+    cursor.execute('SELECT * FROM tblAddresses WHERE id=%s', addr_id)
+    result = cursor.fetchall()
+    json_result = json.dumps(result);
+    resp = Response(json_result, status=200, mimetype='application/json')
+    return resp
+
+
+@app.route('/api/v1/address/<int:addr_id>', methods=['PUT'])
+def api_edit(addr_id) -> str:
+    cursor = mysql.get_db().cursor()
+    content = request.json
+    inputData = (content['first'], content['last'], content['Address'],
+                 content['City'], content['State'],
+                 content['zip'], addr_id)
+    sql_update_query = """UPDATE tblAddresses t SET t.first = %s, t.last = %s, t.Address = %s, t.City = 
+    %s, t.State = %s, t.zip = %s WHERE t.id = %s """
+    cursor.execute(sql_update_query, inputData)
+    mysql.get_db().commit()
+    resp = Response(status=200, mimetype='application/json')
+    return resp
+
+@app.route('/api/v1/address', methods=['POST'])
+def api_add() -> str:
+
+    content = request.json
+
+    cursor = mysql.get_db().cursor()
+    inputData = (content['first'], content['last'], content['Address'],
+                 content['City'], content['State'],
+                 content['zip'])
+    sql_insert_query = """INSERT INTO tblAddresses (first,last,Address,City,State,zip) VALUES (%s, %s,%s, %s,%s, %s) """
+    cursor.execute(sql_insert_query, inputData)
+    mysql.get_db().commit()
+    resp = Response(status=201, mimetype='application/json')
+    return resp
+
+@app.route('/api/v1/address/<int:addr_id>', methods=['DELETE'])
+def api_delete(addr_id) -> str:
+    cursor = mysql.get_db().cursor()
+    sql_delete_query = """DELETE FROM tblAddresses WHERE id = %s """
+    cursor.execute(sql_delete_query, addr_id)
+    mysql.get_db().commit()
+    resp = Response(status=200, mimetype='application/json')
+    return resp
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
